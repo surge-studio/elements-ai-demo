@@ -1,12 +1,16 @@
 # Elements AI Demo
 
-[Next.js](https://nextjs.org/) application demonstrating implementation of an [Elements AI Visual](https://elements.surge.studio) using [Rive](https://rive.app).
+[Next.js](https://nextjs.org/) application demonstrating implementation of an [Elements](https://elements.surge.studio) AI visual using [Rive](https://rive.app).
 
-## AI Visual
+## AI visual
 
-`/components/ai-visual.tsx` contains the component that renders the visual element using `useRive` from `@rive-app/react-canvas-lite`.
+The component `/components/ai-visual.tsx` renders the visual element with `useRive` from `@rive-app/react-canvas-lite`.
 
 The AI visual 'Command' is included in this repo at `/public/command-1.0.0-preview.riv`.
+
+[Elements](https://elements.surge.studio) AI visuals are all setup in a similar way with matching state machines.
+
+Command as an example supports 4 different states: `listening`, `thinking`, `speaking`, `asleep`. By default it can also be configured into 10 different colors. See the enum in `ai-visual.tsx` or visit the website for details.
 
 ## Development
 
@@ -16,9 +20,11 @@ Install with `pnpm i` and run development environment with `pnpm dev`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser.
 
+We do not recommend using this repo as a starting template. Please see [Next.js AI Chatbot](https://vercel.com/templates/next.js/nextjs-ai-chatbot) and [Next Forge](https://github.com/haydenbleasel/next-forge) for more complete and fully featured application examples.
+
 ## Learn more
 
-To learn more about the parts of this application read any of the following resources:
+Learn more about the different parts of this application:
 
 - [Rive Guide](https://help.rive.app/getting-started/introduction) - learn about the Rive application and features.
 - [Rive Runtimes](https://rive.app/runtimes) - learn about Rive Runtimes.
