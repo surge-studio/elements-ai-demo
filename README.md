@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Elements AI Demo
 
-## Getting Started
+[Next.js](https://nextjs.org/) application demonstrating implementation of an [Elements AI Visual](https://elements.surge.studio) using [Rive](https://rive.app).
 
-First, run the development server:
+## AI Visual
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+`/components/ai-visual.tsx` contains the component that renders the visual element using `useRive` from `@rive-app/react-canvas-lite`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The AI visual 'Command' is included in this repo at `/public/command-1.0.0-preview.riv`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Development
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Rename `.env.example` and populate environment variables.
 
-## Learn More
+Install with `pnpm i` and run development environment with `pnpm dev`
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
+## Learn more
+
+To learn more about the parts of this application read any of the following resources:
+
+- [Rive Guide](https://help.rive.app/getting-started/introduction) - learn about the Rive application and features.
+- [Rive Runtimes](https://rive.app/runtimes) - learn about Rive Runtimes.
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Vercel AI SDK](https://sdk.vercel.ai/docs) - An open source library for building AI-powered user interfaces.
