@@ -11,11 +11,17 @@ type UseMicrophoneProps = {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
+type UseMicrophoneResponse = {
+  transcript: string;
+  isListening: boolean;
+  handleListen: () => Promise<void>;
+};
+
 export const useMicrophone = ({
   setInput,
   onListen,
   onSubmit,
-}: UseMicrophoneProps) => {
+}: UseMicrophoneProps): UseMicrophoneResponse => {
   const {
     transcript,
     listening: isListening,

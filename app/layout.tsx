@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { FC, ReactNode } from 'react';
+import { Inter as loadInter } from 'next/font/google';
 import clsx from 'clsx';
+import type { FC, ReactNode } from 'react';
+import type { Metadata } from 'next';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = loadInter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Elements AI Demo',

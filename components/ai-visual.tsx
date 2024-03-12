@@ -22,7 +22,6 @@ type AIVisualProps = {
   readonly isThinking?: boolean;
   readonly isSpeaking?: boolean;
   readonly isAsleep?: boolean;
-  readonly className?: string;
   readonly onLoad?: () => void;
 };
 

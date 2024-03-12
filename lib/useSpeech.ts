@@ -1,7 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
 import { processSystemSpeech } from './utils';
 
-export const useSpeech = () => {
+type UseSpeechResponse = {
+  isSpeaking: boolean;
+  isSpeechEnabled: boolean;
+  setIsSpeechEnabled: (enabled: boolean) => void;
+  handleFirstInteraction: () => void;
+  handleSpeech: (props: { message?: string }) => Promise<void>;
+  stopSpeaking: () => void;
+};
+
+export const useSpeech = (): UseSpeechResponse => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement>();
   const [ready, setReady] = useState<boolean>(false);

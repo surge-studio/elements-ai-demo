@@ -14,9 +14,9 @@ import { useSpeech } from '@/lib/useSpeech';
 import { useMicrophone } from '@/lib/useMicrophone';
 import { AIVisual } from './ai-visual';
 import { ChatMessage } from './chat-message';
-import type { FC } from 'react';
 import { Logo } from './logo';
 import { SocialLinks } from './social-links';
+import type { FC } from 'react';
 
 export const Chat: FC = () => {
   const [isAsleep, setIsAsleep] = useState(false);
@@ -40,8 +40,8 @@ export const Chat: FC = () => {
     handleSubmit,
     isLoading,
   } = useChat({
-    onFinish: (message) => {
-      handleSpeech({ message: message.content });
+    onFinish: async (message) => {
+      await handleSpeech({ message: message.content });
     },
   });
 
@@ -76,6 +76,7 @@ export const Chat: FC = () => {
   }, [input, messages, isSpeaking, isListening, isLoading]);
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       onClick={handleWindowClick}
       className="h-full w-full px-4 md:p-8 lg:p-16"
@@ -122,6 +123,7 @@ export const Chat: FC = () => {
                   onChange={handleInputChange}
                   className="rounded-full h-12 w-full bg-white/5 px-6 outline-none text-white transition placeholder-white/50"
                   disabled={isListening}
+                  aria-label="Ask me anything"
                 />
               </form>
               <button

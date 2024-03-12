@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export const SocialLinks: FC = () => (
   <div className="flex justify-end w-full">

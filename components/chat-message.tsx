@@ -1,6 +1,6 @@
+import clsx from 'clsx';
 import type { FC } from 'react';
 import type { Message } from 'ai';
-import clsx from 'clsx';
 
 type ChatMessageProps = {
   readonly message: Message;
