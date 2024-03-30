@@ -32,9 +32,9 @@ export const AIVisual: FC<AIVisualProps> = ({
   isAsleep = false,
   onLoad,
 }) => {
-  const stateMachine = 'unlicensed';
+  const stateMachine = 'default';
   const { rive, RiveComponent } = useRive({
-    src: '/command-1.0.0-preview.riv',
+    src: '/command-1.0.0.riv',
     stateMachines: stateMachine,
     autoplay: true,
     onLoad,
