@@ -9,10 +9,10 @@ type ChatMessageProps = {
 export const ChatMessage: FC<ChatMessageProps> = ({ message }) => (
   <div
     className={clsx(
-      'py-2 rounded shadow-md px-4 w-fit',
+      'py-3 rounded shadow-md px-5 w-fit shrink-0 text-lg leading-relaxed',
       message.role === 'user'
-        ? 'self-end ml-auto bg-purple-700'
-        : 'self-start text-white bg-gray-800'
+        ? 'self-end ml-auto bg-purple-600'
+        : 'self-start text-white bg-gray-800/50'
     )}
   >
     {message.content}

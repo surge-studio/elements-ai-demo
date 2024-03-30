@@ -79,7 +79,7 @@ export const Chat: FC = () => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       onClick={handleWindowClick}
-      className="h-full w-full px-4 md:p-8 lg:p-16"
+      className="w-full h-full px-4 md:p-8 lg:p-16"
     >
       <div className="flex flex-col h-full max-w-4xl mx-auto">
         <div className="flex items-center justify-between w-full py-6 shrink-0">
@@ -103,11 +103,11 @@ export const Chat: FC = () => {
                 <motion.div
                   key={message.id}
                   className="w-full"
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -24 }}
+                  initial={{ opacity: 0, height: 'auto' }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  layout
+                  layout="position"
                 >
                   <ChatMessage message={message} />
                 </motion.div>
@@ -121,14 +121,14 @@ export const Chat: FC = () => {
                   value={input}
                   placeholder={isListening ? 'Listening...' : 'Ask me anything'}
                   onChange={handleInputChange}
-                  className="rounded-full h-12 w-full bg-white/5 px-6 outline-none text-white transition placeholder-white/50"
+                  className="w-full h-12 px-6 text-white transition rounded-full outline-none bg-white/5 placeholder-white/50 focus-visible:ring-2 ring-offset-2 ring-offset-gray-900 ring-purple-600"
                   disabled={isListening}
                   aria-label="Ask me anything"
                 />
               </form>
               <button
                 type="button"
-                className="h-12 shrink-0 w-12 bg-white/5 flex justify-center items-center transition rounded-full select-none hover:bg-white/10"
+                className="flex items-center justify-center w-12 h-12 transition rounded-full outline-none select-none shrink-0 bg-white/5 hover:bg-white/10 focus-visible:ring-2 ring-offset-2 ring-offset-gray-900 ring-purple-600"
                 onClick={handleListen}
               >
                 {isListening ? (
@@ -141,7 +141,7 @@ export const Chat: FC = () => {
               </button>
               <button
                 type="button"
-                className="h-12 shrink-0 w-12 bg-white/5 flex justify-center items-center transition rounded-full select-none hover:bg-white/10"
+                className="flex items-center justify-center w-12 h-12 transition rounded-full outline-none select-none shrink-0 bg-white/5 hover:bg-white/10 focus-visible:ring-2 ring-offset-2 ring-offset-gray-900 ring-purple-600"
                 onClick={() => setIsSpeechEnabled(!isSpeechEnabled)}
               >
                 {isSpeechEnabled ? <Volume2Icon /> : <VolumeXIcon />}

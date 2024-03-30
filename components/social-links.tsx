@@ -6,7 +6,7 @@ export const SocialLinks: FC = () => (
       href="https://github.com/surge-studio/elements-ai-demo"
       target="_blank"
       rel="noopener noreferrer"
-      className="text-xs outline-none focus-visible:underline font-medium tracking-widest text-gray-400 uppercase hover:text-white transition"
+      className="text-xs font-medium tracking-widest text-gray-400 uppercase transition outline-none focus-visible:underline hover:text-purple-600"
     >
       GitHub
     </a>
