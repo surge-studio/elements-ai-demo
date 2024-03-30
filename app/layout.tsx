@@ -2,7 +2,7 @@ import { Inter as loadInter } from 'next/font/google';
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import type { Metadata } from 'next';
-import './globals.css';
+import '../styles/globals.css';
 
 const inter = loadInter({ subsets: ['latin'] });
 
