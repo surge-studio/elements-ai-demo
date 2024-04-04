@@ -23,6 +23,7 @@ export const Chat: FC = () => {
 
   // Speaking
   const {
+    isLoadingSpeech,
     isSpeaking,
     isSpeechEnabled,
     setIsSpeechEnabled,
@@ -87,7 +88,7 @@ export const Chat: FC = () => {
             <Logo />
           </div>
           <AIVisual
-            isThinking={isLoading}
+            isThinking={isLoading || isLoadingSpeech}
             isSpeaking={isSpeaking}
             isListening={isListening}
             isAsleep={isAsleep}

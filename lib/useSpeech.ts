@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { processSystemSpeech } from './utils';
 
 type UseSpeechResponse = {
+  isLoadingSpeech: boolean;
   isSpeaking: boolean;
   isSpeechEnabled: boolean;
   setIsSpeechEnabled: (enabled: boolean) => void;
@@ -11,6 +12,7 @@ type UseSpeechResponse = {
 };
 
 export const useSpeech = (): UseSpeechResponse => {
+  const [isLoadingSpeech, setIsLoadingSpeech] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement>();
   const [ready, setReady] = useState<boolean>(false);
@@ -41,6 +43,7 @@ export const useSpeech = (): UseSpeechResponse => {
     async ({ message }: { message?: string }) => {
       if (!isSpeechEnabled || !message) return;
       const processedContent = processSystemSpeech(message);
+      setIsLoadingSpeech(true);
 
       const speechResponse = await fetch('/api/speech', {
         method: 'POST',
@@ -54,7 +57,10 @@ export const useSpeech = (): UseSpeechResponse => {
 
       if (speechResponse.ok) {
         const blob = await speechResponse.blob();
+        setIsLoadingSpeech(false);
         await playSpeech(blob);
+      } else {
+        setIsLoadingSpeech(false);
       }
     },
     [isSpeechEnabled, playSpeech]
@@ -68,26 +74,25 @@ export const useSpeech = (): UseSpeechResponse => {
   }, [audioElement]);
 
   useEffect(() => {
-    if (audioElement) {
-      const handlePause = () => {
-        stopSpeaking();
-      };
-      const handleEnded = () => {
-        stopSpeaking();
-      };
-      audioElement.addEventListener('pause', handlePause);
-      audioElement.addEventListener('ended', handleEnded);
-      return () => {
-        audioElement.removeEventListener('pause', handlePause);
-        audioElement.removeEventListener('ended', handleEnded);
-      };
+    if (!audioElement) {
+      return undefined;
     }
+    const handlePause = () => {
+      stopSpeaking();
+    };
+    const handleEnded = () => {
+      stopSpeaking();
+    };
+    audioElement.addEventListener('pause', handlePause);
+    audioElement.addEventListener('ended', handleEnded);
     return () => {
-      //
+      audioElement.removeEventListener('pause', handlePause);
+      audioElement.removeEventListener('ended', handleEnded);
     };
   }, [audioElement, stopSpeaking]);
 
   return {
+    isLoadingSpeech,
     isSpeaking,
     isSpeechEnabled,
     setIsSpeechEnabled,
