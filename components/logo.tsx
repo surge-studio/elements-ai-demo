@@ -5,9 +5,9 @@ export const Logo: FC = () => (
     href="https://elements.surge.studio"
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-flex flex-col text-xs font-medium tracking-widest text-gray-400 uppercase transition outline-none group focus-visible:underline hover:text-purple-600"
+    className="group inline-flex flex-col font-medium text-gray-400 text-xs uppercase tracking-widest outline-none transition hover:text-purple-600 focus-visible:underline"
   >
-    <span className="block text-gray-200 transition w-fit group-hover:text-purple-600">
+    <span className="block w-fit text-gray-200 transition group-hover:text-purple-600">
       Elements
     </span>
     <span className="block w-fit">AI Demo</span>

@@ -1,5 +1,7 @@
 export const processSystemSpeech = (input: string): string => {
-  if (!input) return '';
+  if (!input) {
+    return '';
+  }
   let output = input;
 
   // dont include code blocks, removing anything starting with ``` and starting again with the next ```

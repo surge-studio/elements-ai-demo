@@ -1,6 +1,6 @@
+import type { Message } from 'ai';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import type { Message } from 'ai';
 
 type ChatMessageProps = {
   readonly message: Message;
@@ -9,10 +9,10 @@ type ChatMessageProps = {
 export const ChatMessage: FC<ChatMessageProps> = ({ message }) => (
   <div
     className={clsx(
-      'py-3 rounded shadow-md px-5 w-fit shrink-0 text-lg leading-relaxed',
+      'w-fit shrink-0 rounded px-5 py-3 text-lg leading-relaxed shadow-md',
       message.role === 'user'
-        ? 'self-end ml-auto bg-purple-600'
-        : 'self-start text-white bg-gray-800/50'
+        ? 'ml-auto self-end bg-purple-600'
+        : 'self-start bg-gray-800/50 text-white'
     )}
   >
     {message.content}

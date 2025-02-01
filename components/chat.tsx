@@ -1,7 +1,9 @@
 'use client';
 
+import { useMicrophone } from '@/lib/microphone';
+import { useSpeech } from '@/lib/speech';
 import { useChat } from 'ai/react';
-import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   EllipsisIcon,
   MicIcon,
@@ -9,14 +11,12 @@ import {
   Volume2Icon,
   VolumeXIcon,
 } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useSpeech } from '@/lib/useSpeech';
-import { useMicrophone } from '@/lib/useMicrophone';
+import { useEffect, useState } from 'react';
+import type { FC } from 'react';
 import { AIVisual } from './ai-visual';
 import { ChatMessage } from './chat-message';
 import { Logo } from './logo';
 import { SocialLinks } from './social-links';
-import type { FC } from 'react';
 
 export const Chat: FC = () => {
   const [isAsleep, setIsAsleep] = useState(false);
@@ -61,6 +61,7 @@ export const Chat: FC = () => {
     handleFirstInteraction();
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: simple idle detection
   useEffect(() => {
     setIsAsleep(false);
     const timeout = setTimeout(
@@ -77,13 +78,14 @@ export const Chat: FC = () => {
   }, [input, messages, isSpeaking, isListening, isLoading]);
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    // biome-ignore lint/nursery/noStaticElementInteractions: first interaction capture
+    // biome-ignore lint/a11y/useKeyWithClickEvents: first interaction capture
     <div
       onClick={handleWindowClick}
-      className="w-full h-full px-4 md:p-8 lg:p-16"
+      className="h-full w-full px-4 md:p-8 lg:p-16"
     >
-      <div className="flex flex-col h-full max-w-4xl mx-auto">
-        <div className="flex items-center justify-between w-full py-6 shrink-0">
+      <div className="mx-auto flex h-full max-w-4xl flex-col">
+        <div className="flex w-full shrink-0 items-center justify-between py-6">
           <div className="w-full">
             <Logo />
           </div>
@@ -97,8 +99,8 @@ export const Chat: FC = () => {
             <SocialLinks />
           </div>
         </div>
-        <div className="flex flex-col flex-1 w-full">
-          <div className="flex flex-1 min-h-[256px] flex-col gap-4 overflow-y-auto">
+        <div className="flex w-full flex-1 flex-col">
+          <div className="flex min-h-[256px] flex-1 flex-col gap-4 overflow-y-auto">
             <AnimatePresence>
               {messages.slice(-2).map((message) => (
                 <motion.div
@@ -116,20 +118,20 @@ export const Chat: FC = () => {
             </AnimatePresence>
           </div>
           <div className="py-4 md:py-6">
-            <div className="relative flex items-center w-full gap-2">
+            <div className="relative flex w-full items-center gap-2">
               <form onSubmit={handleSubmit} className="w-full ">
                 <input
                   value={input}
                   placeholder={isListening ? 'Listening...' : 'Ask me anything'}
                   onChange={handleInputChange}
-                  className="w-full h-12 px-6 text-white transition rounded-full outline-none bg-white/5 placeholder-white/50 focus-visible:ring-2 ring-offset-2 ring-offset-gray-900 ring-purple-600"
+                  className="h-12 w-full rounded-full bg-white/5 px-6 text-white placeholder-white/50 outline-none ring-purple-600 ring-offset-2 ring-offset-gray-900 transition focus-visible:ring-2"
                   disabled={isListening}
                   aria-label="Ask me anything"
                 />
               </form>
               <button
                 type="button"
-                className="flex items-center justify-center w-12 h-12 transition rounded-full outline-none select-none shrink-0 bg-white/5 hover:bg-white/10 focus-visible:ring-2 ring-offset-2 ring-offset-gray-900 ring-purple-600"
+                className="flex h-12 w-12 shrink-0 select-none items-center justify-center rounded-full bg-white/5 outline-none ring-purple-600 ring-offset-2 ring-offset-gray-900 transition hover:bg-white/10 focus-visible:ring-2"
                 onClick={handleListen}
               >
                 {isListening ? (
@@ -142,7 +144,7 @@ export const Chat: FC = () => {
               </button>
               <button
                 type="button"
-                className="flex items-center justify-center w-12 h-12 transition rounded-full outline-none select-none shrink-0 bg-white/5 hover:bg-white/10 focus-visible:ring-2 ring-offset-2 ring-offset-gray-900 ring-purple-600"
+                className="flex h-12 w-12 shrink-0 select-none items-center justify-center rounded-full bg-white/5 outline-none ring-purple-600 ring-offset-2 ring-offset-gray-900 transition hover:bg-white/10 focus-visible:ring-2"
                 onClick={() => setIsSpeechEnabled(!isSpeechEnabled)}
               >
                 {isSpeechEnabled ? <Volume2Icon /> : <VolumeXIcon />}

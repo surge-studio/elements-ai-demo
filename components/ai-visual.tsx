@@ -4,18 +4,18 @@ import { useRive, useStateMachineInput } from '@rive-app/react-canvas-lite';
 import { useEffect } from 'react';
 import type { FC } from 'react';
 
-enum COLOR {
-  BLACK = 0,
-  WHITE = 1,
-  RED = 2,
-  ORANGE = 3,
-  YELLOW = 4,
-  GREEN = 5,
-  CYAN = 6,
-  BLUE = 7,
-  PURPLE = 8,
-  PINK = 9,
-}
+const COLOR = {
+  BLACK: 0,
+  WHITE: 1,
+  RED: 2,
+  ORANGE: 3,
+  YELLOW: 4,
+  GREEN: 5,
+  CYAN: 6,
+  BLUE: 7,
+  PURPLE: 8,
+  PINK: 9,
+} as const;
 
 type AIVisualProps = {
   readonly isListening?: boolean;
@@ -74,5 +74,5 @@ export const AIVisual: FC<AIVisualProps> = ({
     colorInput,
   ]);
 
-  return <RiveComponent className="w-[64px] h-[64px] shrink-0" />;
+  return <RiveComponent className="h-[64px] w-[64px] shrink-0" />;
 };

@@ -1,9 +1,9 @@
 import 'regenerator-runtime/runtime';
 import { useEffect } from 'react';
+import type { FormEvent } from 'react';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
-import type { FormEvent } from 'react';
 
 type UseMicrophoneProps = {
   setInput: (input: string) => void;
@@ -37,8 +37,9 @@ export const useMicrophone = ({
     if (isListening) {
       await SpeechRecognition.stopListening();
       onSubmit({
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        preventDefault: () => {},
+        preventDefault: () => {
+          // No default action needed
+        },
       } as FormEvent<HTMLFormElement>);
       resetTranscript();
       setInput('');

@@ -1,8 +1,8 @@
-import { Inter as loadInter } from 'next/font/google';
-import clsx from 'clsx';
 import { Analytics } from '@vercel/analytics/react';
-import type { FC, ReactNode } from 'react';
+import clsx from 'clsx';
 import type { Metadata } from 'next';
+import { Inter as loadInter } from 'next/font/google';
+import type { FC, ReactNode } from 'react';
 import '../styles/globals.css';
 
 const inter = loadInter({ subsets: ['latin'] });
@@ -19,7 +19,7 @@ type RootLayoutProps = {
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => (
   <html lang="en" className="h-full">
-    <body className={clsx(inter.className, 'text-white bg-gray-900 h-full')}>
+    <body className={clsx(inter.className, 'h-full bg-gray-900 text-white')}>
       {children}
       <Analytics />
     </body>

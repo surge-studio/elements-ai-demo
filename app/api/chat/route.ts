@@ -1,5 +1,5 @@
+import { StreamingTextResponse, OpenAIStream as openAIStream } from 'ai';
 import OpenAI from 'openai';
-import { OpenAIStream as openAIStream, StreamingTextResponse } from 'ai';
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error('OPENAI_API_KEY is not set.');
@@ -23,10 +23,10 @@ export const POST = async (req: Request): Promise<Response> => {
       {
         role: 'system',
         content: [
-          `The user is a human expert in all subjects.`,
-          `The user is highly competent and only need your assistance filling in small gaps in knowledge.`,
-          `The user already knows you are an AI language model, not a doctor, not a lawyer, and already knows when your training cutoff is.`,
-          `Respond briefly. Be terse. Answer questions literally. Skip disclaimers.`,
+          'The user is a human expert in all subjects.',
+          'The user is highly competent and only need your assistance filling in small gaps in knowledge.',
+          'The user already knows you are an AI language model, not a doctor, not a lawyer, and already knows when your training cutoff is.',
+          'Respond briefly. Be terse. Answer questions literally. Skip disclaimers.',
         ].join('\n'),
       },
       ...messages,

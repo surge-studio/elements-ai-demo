@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { processSystemSpeech } from './utils';
 
 type UseSpeechResponse = {
@@ -41,7 +41,10 @@ export const useSpeech = (): UseSpeechResponse => {
 
   const handleSpeech = useCallback(
     async ({ message }: { message?: string }) => {
-      if (!isSpeechEnabled || !message) return;
+      if (!isSpeechEnabled || !message) {
+        return;
+      }
+
       const processedContent = processSystemSpeech(message);
       setIsLoadingSpeech(true);
 
