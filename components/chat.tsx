@@ -124,14 +124,14 @@ export const Chat: FC = () => {
                   value={input}
                   placeholder={isListening ? 'Listening...' : 'Ask me anything'}
                   onChange={handleInputChange}
-                  className="h-12 w-full rounded-full bg-white/5 px-6 text-white placeholder-white/50 outline-none ring-purple-600 ring-offset-2 ring-offset-gray-900 transition focus-visible:ring-2"
+                  className="h-12 w-full rounded-full bg-white/5 px-6 text-white placeholder-white/50 outline-hidden ring-purple-600 ring-offset-2 ring-offset-gray-900 transition focus-visible:ring-2"
                   disabled={isListening}
                   aria-label="Ask me anything"
                 />
               </form>
               <button
                 type="button"
-                className="flex h-12 w-12 shrink-0 select-none items-center justify-center rounded-full bg-white/5 outline-none ring-purple-600 ring-offset-2 ring-offset-gray-900 transition hover:bg-white/10 focus-visible:ring-2"
+                className="flex h-12 w-12 shrink-0 select-none items-center justify-center rounded-full bg-white/5 outline-hidden ring-purple-600 ring-offset-2 ring-offset-gray-900 transition hover:bg-white/10 focus-visible:ring-2"
                 onClick={handleListen}
               >
                 {isListening ? (
@@ -144,7 +144,7 @@ export const Chat: FC = () => {
               </button>
               <button
                 type="button"
-                className="flex h-12 w-12 shrink-0 select-none items-center justify-center rounded-full bg-white/5 outline-none ring-purple-600 ring-offset-2 ring-offset-gray-900 transition hover:bg-white/10 focus-visible:ring-2"
+                className="flex h-12 w-12 shrink-0 select-none items-center justify-center rounded-full bg-white/5 outline-hidden ring-purple-600 ring-offset-2 ring-offset-gray-900 transition hover:bg-white/10 focus-visible:ring-2"
                 onClick={() => setIsSpeechEnabled(!isSpeechEnabled)}
               >
                 {isSpeechEnabled ? <Volume2Icon /> : <VolumeXIcon />}
