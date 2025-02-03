@@ -6,7 +6,7 @@
 
 The component `/components/ai-visual.tsx` renders the visual element with `useRive` from `@rive-app/react-canvas-lite`.
 
-The AI visual 'Command' is included in this repo at `/public/command-1.0.0-preview.riv`.
+The AI visual 'Command' is included in this repo at `/public/command-1.0.0.riv`.
 
 [Elements](https://elements.surge.studio) AI visuals are all setup in a similar way with matching state machines.
 
