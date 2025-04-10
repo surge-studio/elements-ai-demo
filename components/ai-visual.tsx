@@ -1,6 +1,7 @@
 'use client';
 
-import { useRive, useStateMachineInput } from '@rive-app/react-canvas-lite';
+// Note: for visuals that use less Rive features, you can alternatively use '@rive-app/react-canvas-lite'
+import { useRive, useStateMachineInput } from '@rive-app/react-webgl2';
 import { useEffect } from 'react';
 import type { FC } from 'react';
 
@@ -32,8 +33,10 @@ export const AIVisual: FC<AIVisualProps> = ({
   isAsleep = false,
   onLoad,
 }) => {
+  // Note: if you dont get the state machine name correct it will not work
   const stateMachine = 'default';
   const { rive, RiveComponent } = useRive({
+    // Note: swap in your file here
     src: '/command-1.0.0.riv',
     stateMachines: stateMachine,
     autoplay: true,
@@ -44,6 +47,7 @@ export const AIVisual: FC<AIVisualProps> = ({
   const thinkingInput = useStateMachineInput(rive, stateMachine, 'thinking');
   const speakingInput = useStateMachineInput(rive, stateMachine, 'speaking');
   const asleepInput = useStateMachineInput(rive, stateMachine, 'asleep');
+  // Note: not all Elements support color input
   const colorInput = useStateMachineInput(rive, stateMachine, 'color');
 
   useEffect(() => {
