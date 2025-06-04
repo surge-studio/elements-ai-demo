@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.1.9",
-    "@rive-app/react-canvas-lite": "^4.21.1",
     "@rive-app/react-webgl2": "^4.21.1",
     "@vercel/analytics": "^1.5.0",
     "ai": "^4.1.16",

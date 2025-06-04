@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 type RootLayoutProps = {
-  readonly children: ReactNode;
+  children: ReactNode;
 };
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => (

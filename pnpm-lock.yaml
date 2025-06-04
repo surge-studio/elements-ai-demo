@@ -11,9 +11,6 @@ importers:
       '@ai-sdk/openai':
         specifier: ^1.1.9
         version: 1.1.9(zod@3.22.4)
-      '@rive-app/react-canvas-lite':
-        specifier: ^4.21.1
-        version: 4.21.1(react@19.1.0)
       '@rive-app/react-webgl2':
         specifier: ^4.21.1
         version: 4.21.1(react@19.1.0)
@@ -403,14 +400,6 @@ packages:
   '@opentelemetry/api@1.9.0':
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
     engines: {node: '>=8.0.0'}
-
-  '@rive-app/canvas-lite@2.29.0':
-    resolution: {integrity: sha512-9wcbuTaz5E2vkHIzQeMDklsdYQvcLoYdJPA99vKr51Hv4skCMk/cbNb4/ekgAqaHiuVpFi6WY+JTrenMAiki5g==}
-
-  '@rive-app/react-canvas-lite@4.21.1':
-    resolution: {integrity: sha512-A6ES7U/HVgg6MZ/BZA98w071Z6fM1pXZ8DZxD9Q0VyadmeAdDp0J7hBOp6TeGwrI7EXgcf4XTGyH0J9zJ4EsgQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0
 
   '@rive-app/react-webgl2@4.21.1':
     resolution: {integrity: sha512-6ZwlD0wJ/KzwQAliaw4m0AzX6hDvKcipYF7KYT7jASMGEMwxsrQY0HUhPYGoADVfn+yN14AqVLZ4KJF1Ji7iyA==}
@@ -807,10 +796,6 @@ packages:
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
-
-  magic-string@0.30.8:
-    resolution: {integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==}
-    engines: {node: '>=12'}
 
   mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
@@ -1247,13 +1232,6 @@ snapshots:
 
   '@opentelemetry/api@1.9.0': {}
 
-  '@rive-app/canvas-lite@2.29.0': {}
-
-  '@rive-app/react-canvas-lite@4.21.1(react@19.1.0)':
-    dependencies:
-      '@rive-app/canvas-lite': 2.29.0
-      react: 19.1.0
-
   '@rive-app/react-webgl2@4.21.1(react@19.1.0)':
     dependencies:
       '@rive-app/webgl2': 2.29.0
@@ -1392,7 +1370,7 @@ snapshots:
       '@vue/compiler-ssr': 3.4.21
       '@vue/shared': 3.4.21
       estree-walker: 2.0.2
-      magic-string: 0.30.8
+      magic-string: 0.30.17
       postcss: 8.5.4
       source-map-js: 1.2.1
     optional: true
@@ -1472,7 +1450,7 @@ snapshots:
 
   code-red@1.0.4:
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
       '@types/estree': 1.0.5
       acorn: 8.11.3
       estree-walker: 3.0.3
@@ -1621,11 +1599,6 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  magic-string@0.30.8:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
-    optional: true
-
   mdn-data@2.0.30:
     optional: true
 
@@ -1760,7 +1733,7 @@ snapshots:
   svelte@4.2.12:
     dependencies:
       '@ampproject/remapping': 2.3.0
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
       '@jridgewell/trace-mapping': 0.3.25
       '@types/estree': 1.0.5
       acorn: 8.11.3
@@ -1771,7 +1744,7 @@ snapshots:
       estree-walker: 3.0.3
       is-reference: 3.0.2
       locate-character: 3.0.0
-      magic-string: 0.30.8
+      magic-string: 0.30.17
       periscopic: 3.1.0
     optional: true
 

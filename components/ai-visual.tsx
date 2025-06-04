@@ -1,29 +1,31 @@
 'use client';
 
-// Note: for visuals that use less Rive features, you can alternatively use '@rive-app/react-canvas-lite'
-import { useRive, useStateMachineInput } from '@rive-app/react-webgl2';
+import {
+  useRive,
+  useStateMachineInput,
+  useViewModel,
+  useViewModelInstance,
+  useViewModelInstanceColor,
+} from '@rive-app/react-webgl2';
 import { useEffect } from 'react';
 import type { FC } from 'react';
 
-const COLOR = {
-  BLACK: 0,
-  WHITE: 1,
-  RED: 2,
-  ORANGE: 3,
-  YELLOW: 4,
-  GREEN: 5,
-  CYAN: 6,
-  BLUE: 7,
-  PURPLE: 8,
-  PINK: 9,
-} as const;
+type RGB = {
+  r: number;
+  g: number;
+  b: number;
+};
+
+const COLORS: Record<string, RGB> = {
+  default: { r: 152, g: 16, b: 250 },
+  listening: { r: 255, g: 0, b: 0 },
+};
 
 type AIVisualProps = {
-  readonly isListening?: boolean;
-  readonly isThinking?: boolean;
-  readonly isSpeaking?: boolean;
-  readonly isAsleep?: boolean;
-  readonly onLoad?: () => void;
+  isListening?: boolean;
+  isThinking?: boolean;
+  isSpeaking?: boolean;
+  isAsleep?: boolean;
 };
 
 export const AIVisual: FC<AIVisualProps> = ({
@@ -31,24 +33,23 @@ export const AIVisual: FC<AIVisualProps> = ({
   isThinking = false,
   isSpeaking = false,
   isAsleep = false,
-  onLoad,
 }) => {
-  // Note: if you dont get the state machine name correct it will not work
-  const stateMachine = 'default';
+  const stateMachine = 'default'; // must match the one defined in the Rive file
+
   const { rive, RiveComponent } = useRive({
-    // Note: swap in your file here
-    src: '/command-1.0.0.riv',
+    src: '/command-2.0.riv', // path to your Rive file
     stateMachines: stateMachine,
     autoplay: true,
-    onLoad,
   });
+
+  // State machine inputs
 
   const listeningInput = useStateMachineInput(rive, stateMachine, 'listening');
   const thinkingInput = useStateMachineInput(rive, stateMachine, 'thinking');
   const speakingInput = useStateMachineInput(rive, stateMachine, 'speaking');
   const asleepInput = useStateMachineInput(rive, stateMachine, 'asleep');
-  // Note: not all Elements support color input
-  const colorInput = useStateMachineInput(rive, stateMachine, 'color');
+  // Legacy v1.0 products support color input (can be set to a value from 0-9)
+  // const colorInput = useStateMachineInput(rive, stateMachine, 'color');
 
   useEffect(() => {
     if (listeningInput) {
@@ -63,9 +64,6 @@ export const AIVisual: FC<AIVisualProps> = ({
     if (asleepInput) {
       asleepInput.value = isAsleep;
     }
-    if (colorInput) {
-      colorInput.value = isListening ? COLOR.RED : COLOR.WHITE;
-    }
   }, [
     isListening,
     isThinking,
@@ -75,8 +73,37 @@ export const AIVisual: FC<AIVisualProps> = ({
     thinkingInput,
     speakingInput,
     asleepInput,
-    colorInput,
   ]);
 
-  return <RiveComponent className="h-[64px] w-[64px] shrink-0" />;
+  // View model and custom color handling
+
+  const viewModel = useViewModel(rive, { useDefault: true });
+  const viewModelInstance = useViewModelInstance(viewModel, {
+    rive,
+    useDefault: true,
+  });
+  const viewModelInstanceColor = useViewModelInstanceColor(
+    'color',
+    viewModelInstance
+  );
+
+  useEffect(() => {
+    if (viewModelInstanceColor) {
+      if (isListening) {
+        viewModelInstanceColor.setRgb(
+          COLORS.listening.r,
+          COLORS.listening.g,
+          COLORS.listening.b
+        );
+      } else {
+        viewModelInstanceColor.setRgb(
+          COLORS.default.r,
+          COLORS.default.g,
+          COLORS.default.b
+        );
+      }
+    }
+  }, [viewModelInstanceColor, isListening]);
+
+  return <RiveComponent className="h-16 w-16 shrink-0" />;
 };

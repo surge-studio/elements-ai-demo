@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 
 type ChatMessageProps = {
-  readonly message: Message;
+  message: Message;
 };
 
 export const ChatMessage: FC<ChatMessageProps> = ({ message }) => (
