@@ -12,7 +12,7 @@ import {
   Volume2Icon,
   VolumeXIcon,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FC, FormEvent } from 'react';
 import { AIVisual } from './ai-visual';
 import { ChatMessage } from './chat-message';
@@ -34,12 +34,21 @@ export const Chat: FC = () => {
     stopSpeaking,
   } = useSpeech();
 
+  const isSpeechEnabledRef = useRef(isSpeechEnabled);
+
+  useEffect(() => {
+    isSpeechEnabledRef.current = isSpeechEnabled;
+  }, [isSpeechEnabled]);
+
   // Chat
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
       api: '/api/chat',
     }),
     onFinish: async (options) => {
+      if (!isSpeechEnabledRef.current) {
+        return;
+      }
       const textContent = options.message.parts
         .filter((part) => part.type === 'text')
         .map((part) => part.text)
@@ -110,12 +119,23 @@ export const Chat: FC = () => {
           <div className="w-full">
             <Logo />
           </div>
-          <AIVisual
-            isThinking={isLoading || isLoadingSpeech}
-            isSpeaking={isSpeaking}
-            isListening={isListening}
-            isAsleep={isAsleep}
-          />
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (isSpeaking) {
+                stopSpeaking();
+              }
+            }}
+            className="outline-hidden"
+          >
+            <AIVisual
+              isThinking={isLoading || isLoadingSpeech}
+              isSpeaking={isSpeaking}
+              isListening={isListening}
+              isAsleep={isAsleep}
+            />
+          </button>
           <div className="w-full">
             <SocialLinks />
           </div>
@@ -166,7 +186,12 @@ export const Chat: FC = () => {
               <button
                 type="button"
                 className="flex h-12 w-12 shrink-0 select-none items-center justify-center rounded-full bg-white/5 outline-hidden ring-purple-600 ring-offset-2 ring-offset-gray-900 transition hover:bg-white/10 focus-visible:ring-2"
-                onClick={() => setIsSpeechEnabled(!isSpeechEnabled)}
+                onClick={() => {
+                  setIsSpeechEnabled(!isSpeechEnabled);
+                  if (isSpeechEnabled) {
+                    stopSpeaking();
+                  }
+                }}
               >
                 {isSpeechEnabled ? <Volume2Icon /> : <VolumeXIcon />}
               </button>
