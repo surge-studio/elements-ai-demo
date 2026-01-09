@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { processSystemSpeech } from './utils';
 
 type UseSpeechResponse = {
@@ -14,34 +14,36 @@ type UseSpeechResponse = {
 export const useSpeech = (): UseSpeechResponse => {
   const [isLoadingSpeech, setIsLoadingSpeech] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [audioElement, setAudioElement] = useState<HTMLAudioElement>();
-  const [ready, setReady] = useState<boolean>(false);
+  const audioElementRef = useRef<HTMLAudioElement | undefined>(undefined);
   const [isSpeechEnabled, setIsSpeechEnabled] = useState<boolean>(true);
 
   const handleFirstInteraction = () => {
-    if (!ready) {
+    if (!audioElementRef.current) {
       const audio = new Audio();
-      setAudioElement(audio);
-      setReady(true);
+      audio.addEventListener('pause', () => {
+        setIsSpeaking(false);
+      });
+      audio.addEventListener('ended', () => {
+        setIsSpeaking(false);
+      });
+
+      audioElementRef.current = audio;
     }
   };
 
-  const playSpeech = useCallback(
-    async (blob: Blob) => {
-      if (audioElement) {
-        const src = URL.createObjectURL(blob);
-        audioElement.src = src;
-        audioElement.muted = false;
-        setIsSpeaking(true);
-        await audioElement.play();
-      }
-    },
-    [audioElement]
-  );
+  const playSpeech = useCallback(async (blob: Blob) => {
+    if (audioElementRef.current) {
+      const src = URL.createObjectURL(blob);
+      audioElementRef.current.src = src;
+      audioElementRef.current.muted = false;
+      setIsSpeaking(true);
+      await audioElementRef.current.play();
+    }
+  }, []);
 
   const handleSpeech = useCallback(
     async ({ message }: { message?: string }) => {
-      if (!isSpeechEnabled || !message) {
+      if (!isSpeechEnabled || !message || !audioElementRef.current) {
         return;
       }
 
@@ -71,28 +73,10 @@ export const useSpeech = (): UseSpeechResponse => {
 
   const stopSpeaking = useCallback(() => {
     setIsSpeaking(false);
-    if (audioElement) {
-      audioElement.src = '';
+    if (audioElementRef.current) {
+      audioElementRef.current.src = '';
     }
-  }, [audioElement]);
-
-  useEffect(() => {
-    if (!audioElement) {
-      return undefined;
-    }
-    const handlePause = () => {
-      stopSpeaking();
-    };
-    const handleEnded = () => {
-      stopSpeaking();
-    };
-    audioElement.addEventListener('pause', handlePause);
-    audioElement.addEventListener('ended', handleEnded);
-    return () => {
-      audioElement.removeEventListener('pause', handlePause);
-      audioElement.removeEventListener('ended', handleEnded);
-    };
-  }, [audioElement, stopSpeaking]);
+  }, []);
 
   return {
     isLoadingSpeech,

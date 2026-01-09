@@ -1,9 +1,9 @@
-import type { Message } from 'ai';
+import type { UIMessage } from 'ai';
 import clsx from 'clsx';
 import type { FC } from 'react';
 
 type ChatMessageProps = {
-  message: Message;
+  message: UIMessage;
 };
 
 export const ChatMessage: FC<ChatMessageProps> = ({ message }) => (
@@ -15,6 +15,10 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => (
         : 'self-start bg-gray-800/50 text-white'
     )}
   >
-    {message.content}
+    {message.parts
+      .filter((part) => part.type === 'text')
+      .map((part, index) => (
+        <span key={index}>{part.text}</span>
+      ))}
   </div>
 );

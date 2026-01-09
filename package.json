@@ -9,29 +9,31 @@
     "check-updates": "npx npm-check-updates -i --format group"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^1.1.9",
-    "@rive-app/react-webgl2": "^4.21.1",
-    "@vercel/analytics": "^1.5.0",
-    "ai": "^4.1.16",
+    "@ai-sdk/openai": "^3.0.7",
+    "@ai-sdk/react": "^3.0.23",
+    "@rive-app/react-webgl2": "^4.25.3",
+    "@vercel/analytics": "^1.6.1",
+    "ai": "^6.0.23",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.16.0",
-    "lucide-react": "^0.511.0",
-    "next": "15.3.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "framer-motion": "^12.24.12",
+    "lucide-react": "^0.562.0",
+    "next": "15.5.9",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "react-speech-recognition": "^3.10.0",
-    "regenerator-runtime": "^0.14.1"
+    "regenerator-runtime": "^0.14.1",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@tailwindcss/postcss": "^4.1.8",
-    "@types/node": "^22.15.29",
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@types/react-speech-recognition": "^3.9.6",
-    "postcss": "^8.5.4",
-    "tailwindcss": "^4.1.8",
-    "typescript": "^5.8.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
     "ultracite": "4.2.5"
   }
 }

@@ -2,7 +2,8 @@
 
 import { useMicrophone } from '@/lib/microphone';
 import { useSpeech } from '@/lib/speech';
-import { useChat } from 'ai/react';
+import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport } from 'ai';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   EllipsisIcon,
@@ -12,7 +13,7 @@ import {
   VolumeXIcon,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import type { FC } from 'react';
+import type { FC, FormEvent } from 'react';
 import { AIVisual } from './ai-visual';
 import { ChatMessage } from './chat-message';
 import { Logo } from './logo';
@@ -20,6 +21,7 @@ import { SocialLinks } from './social-links';
 
 export const Chat: FC = () => {
   const [isAsleep, setIsAsleep] = useState(false);
+  const [input, setInput] = useState('');
 
   // Speaking
   const {
@@ -33,18 +35,37 @@ export const Chat: FC = () => {
   } = useSpeech();
 
   // Chat
-  const {
-    messages,
-    input,
-    setInput,
-    handleInputChange,
-    handleSubmit,
-    isLoading,
-  } = useChat({
-    onFinish: async (message) => {
-      await handleSpeech({ message: message.content });
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({
+      api: '/api/chat',
+    }),
+    onFinish: async (options) => {
+      const textContent = options.message.parts
+        .filter((part) => part.type === 'text')
+        .map((part) => part.text)
+        .join('');
+      await handleSpeech({ message: textContent });
+    },
+    onError: (error) => {
+      // biome-ignore lint/suspicious/noConsole: error logging
+      console.error('Chat error:', error);
     },
   });
+
+  const isLoading = status === 'submitted' || status === 'streaming';
+
+  const handleSubmit = (event?: FormEvent) => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    if (!input.trim()) {
+      return;
+    }
+
+    sendMessage({ text: input });
+    setInput('');
+  };
 
   // Listening
   const { isListening, handleListen } = useMicrophone({
@@ -100,7 +121,7 @@ export const Chat: FC = () => {
           </div>
         </div>
         <div className="flex w-full flex-1 flex-col">
-          <div className="flex min-h-[256px] flex-1 flex-col gap-4 overflow-y-auto">
+          <div className="flex min-h-64 flex-1 flex-col gap-4 overflow-y-auto">
             <AnimatePresence>
               {messages.slice(-2).map((message) => (
                 <motion.div
@@ -123,7 +144,7 @@ export const Chat: FC = () => {
                 <input
                   value={input}
                   placeholder={isListening ? 'Listening...' : 'Ask me anything'}
-                  onChange={handleInputChange}
+                  onChange={(event) => setInput(event.target.value)}
                   className="h-12 w-full rounded-full bg-white/5 px-6 text-white placeholder-white/50 outline-hidden ring-purple-600 ring-offset-2 ring-offset-gray-900 transition focus-visible:ring-2"
                   disabled={isListening}
                   aria-label="Ask me anything"
