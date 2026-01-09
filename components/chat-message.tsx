@@ -1,12 +1,14 @@
 import type { UIMessage } from 'ai';
 import clsx from 'clsx';
 import type { FC } from 'react';
+import { Streamdown } from 'streamdown';
 
 type ChatMessageProps = {
   message: UIMessage;
+  isLoading: boolean;
 };
 
-export const ChatMessage: FC<ChatMessageProps> = ({ message }) => (
+export const ChatMessage: FC<ChatMessageProps> = ({ message, isLoading }) => (
   <div
     className={clsx(
       'w-fit shrink-0 rounded-sm px-5 py-3 text-lg leading-relaxed shadow-md',
@@ -18,7 +20,12 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => (
     {message.parts
       .filter((part) => part.type === 'text')
       .map((part, index) => (
-        <span key={index}>{part.text}</span>
+        <Streamdown
+          key={index}
+          isAnimating={message.role === 'assistant' && isLoading}
+        >
+          {part.text}
+        </Streamdown>
       ))}
   </div>
 );

@@ -133,7 +133,7 @@ export const Chat: FC = () => {
                   transition={{ duration: 0.2 }}
                   layout="position"
                 >
-                  <ChatMessage message={message} />
+                  <ChatMessage message={message} isLoading={isLoading} />
                 </motion.div>
               ))}
             </AnimatePresence>

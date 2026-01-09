@@ -18,7 +18,7 @@ type RootLayoutProps = {
 };
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => (
-  <html lang="en" className="h-full">
+  <html lang="en" className="dark h-full">
     <body className={clsx(inter.className, 'h-full bg-gray-900 text-white')}>
       {children}
       <Analytics />
